@@ -36,3 +36,4 @@ export const logout = () => dispatch => {
 
 // window.login = login;
 // window.signup = signup;
+// window.logout = logout;

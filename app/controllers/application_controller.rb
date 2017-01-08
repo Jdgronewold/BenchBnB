@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user, :already_logged_in?
+  helper_method :current_user, :logged_in?
 
   private
 
@@ -24,10 +24,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def already_logged_in?
+  def logged_in?
     unless current_user
       return false
     end
+    return true
   end
 
 end

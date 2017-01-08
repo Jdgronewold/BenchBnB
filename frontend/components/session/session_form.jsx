@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, withRouter } from 'react-router';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -7,11 +7,18 @@ class SessionForm extends React.Component {
     this.state = { username: "", password: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.redirect = this.redirect.bind();
+  }
+
+  redirect() {
+    this.props.router.push("/");
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    debugger
+    const user = Object.assign({}, this.state);
+    this.props.processForm(user)
+      .then(() => this.props.router.push('/'));
   }
 
   updateState(property) {
@@ -19,20 +26,26 @@ class SessionForm extends React.Component {
   }
 
   render() {
-    const buttonText = (this.props.formType === "signup" ? "Sign Up" : "Log in");
-    const linkText = (this.props.formType === "signup" ? "login" : "signup");
+    const buttonText = (this.props.formType === "/signup" ? "Sign Up" : "Log in");
+    const linkText = (this.props.formType === "/signup" ? "login" : "signup");
     return (
       <div className="form-container">
+        <span className="form-switch">
+          Please {buttonText} or {' '}
+          <Link to={linkText}>  {linkText}</Link>
+        </span>
         <form className="form-box" onSubmit={this.handleSubmit}>
           <label>Username
+            <br/>
             <input
               type="text"
               onChange={this.updateState("username")}
               value={this.state.username}
               />
           </label>
-          <br></br>
+          <br/>
           <label>Password
+            <br/>
             <input
               type="password"
               onChange={this.updateState("password")}
@@ -41,13 +54,10 @@ class SessionForm extends React.Component {
           </label>
           <button>{buttonText}</button>
         </form>
-        <br></br>
-        <div>
-          <Link to={linkText}>{linkText}</Link>
-        </div>
+        <br/>
       </div>
     );
   }
 }
 
-export default SessionForm;
+export default withRouter(SessionForm);

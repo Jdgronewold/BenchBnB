@@ -10,15 +10,15 @@ const mapStateToProps = ({session, errors}) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   let processForm;
-  if (ownProps.location.pathname === "signup") {
+  if (ownProps.location.pathname === "/signup") {
     processForm = (user) => dispatch(signup(user));
-  } else {
+  } else if (ownProps.location.pathname === "/login") {
     processForm = (user) => dispatch(login(user));
   }
   return ({
     formType: ownProps.location.pathname,
     ownProps: ownProps,
-    processForm
+    processForm: processForm
   });
 };
 
