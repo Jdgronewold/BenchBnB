@@ -17,6 +17,8 @@ export default class MarkerManager {
     return newBenches;
   }
 
+  
+
   _createMarkerFromBench(bench) {
     const pos = new google.maps.LatLng(bench.lat, bench.long);
     let marker = new google.maps.Marker({

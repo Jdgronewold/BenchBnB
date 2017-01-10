@@ -1,9 +1,9 @@
 
-export const fetchBenches = (success) => (
-  $.ajax({
+export const fetchBenches = (bounds) => {
+  return ($.ajax({
     method: "GET",
     url: "api/benches",
-    success: success,
+    data: { bounds },
     err: (err) => console.log(err)
-  })
-);
+  }));
+};
